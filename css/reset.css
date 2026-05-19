@@ -1,0 +1,7 @@
+/* reset.css — Base reset & font setup */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { font-family: 'DM Sans', sans-serif; background: #f0f2f5; color: #374151; min-height: 100vh; }
+button { cursor: pointer; font-family: inherit; border: none; background: none; }
+input { font-family: inherit; }
+canvas { display: block; }

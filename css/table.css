@@ -1,0 +1,85 @@
+/* table.css — Node status table */
+.table-panel {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e4e7ed;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.table-top {
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid #f0f2f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Filter tabs */
+.filter-tabs { display: flex; gap: 4px; }
+.ftab {
+  font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 6px;
+  color: #9199ab; background: #f5f6fa;
+  border: 1px solid #e4e7ed;
+  transition: all 0.15s;
+}
+.ftab:hover  { background: #e8eaf0; }
+.ftab.active { background: #1a1f36; color: #fff; border-color: #1a1f36; }
+
+/* Table */
+.node-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+.node-table th {
+  text-align: left;
+  color: #9199ab; font-weight: 500; font-size: 11px;
+  padding: 9px 16px;
+  background: #fafbfc;
+  border-bottom: 1px solid #f0f2f5;
+  white-space: nowrap;
+}
+.sortable { cursor: pointer; user-select: none; }
+.sortable:hover { color: #374151; }
+
+.node-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid #f7f8fa;
+  vertical-align: middle;
+}
+.node-table tr:last-child td { border-bottom: none; }
+.node-table tr:hover td { background: #fafbfc; }
+
+.node-id {
+  font-weight: 600; color: #1a1f36;
+  font-family: 'DM Mono', monospace; font-size: 11px;
+}
+
+.bar-wrap  { background: #f0f2f5; border-radius: 6px; height: 5px; margin-bottom: 3px; width: 80px; }
+.bar-fill  { height: 5px; border-radius: 6px; transition: width 0.8s ease; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 20px;
+  font-size: 10px; font-weight: 600;
+}
+.p-ok   { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+.p-warn { background: #fff7ed; color: #d97706; border: 1px solid #fed7aa; }
+.p-off  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.pill-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+/* Bandwidth panel */
+.bw-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 12px; }
+.bw-label { width: 70px; color: #1a1f36; font-weight: 600; font-family: 'DM Mono', monospace; font-size: 11px; flex-shrink: 0; }
+.bw-bar-wrap { flex: 1; background: #f0f2f5; border-radius: 6px; height: 8px; }
+.bw-bar-fill { height: 8px; border-radius: 6px; transition: width 0.8s ease; }
+.bw-pct { width: 38px; text-align: right; color: #9199ab; font-size: 11px; font-family: 'DM Mono', monospace; }
+.bw-loc { width: 80px; color: #9199ab; font-size: 11px; }
+
+@media (max-width: 600px) {
+  .node-table th:nth-child(3),
+  .node-table td:nth-child(3),
+  .node-table th:nth-child(7),
+  .node-table td:nth-child(7) { display: none; }
+}

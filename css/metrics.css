@@ -1,0 +1,47 @@
+/* metrics.css — KPI cards row */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.mcard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1px solid #e4e7ed;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.mcard:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.1); transform: translateY(-2px); }
+
+.mcard-accent {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; border-radius: 12px 12px 0 0;
+}
+
+.mcard-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+
+.mlabel { font-size: 11px; color: #9199ab; font-weight: 500; margin-bottom: 4px; }
+
+.mval  { font-size: 26px; font-weight: 600; color: #1a1f36; font-family: 'DM Mono', monospace; line-height: 1; }
+.munit { font-size: 12px; color: #9199ab; font-weight: 400; margin-left: 2px; }
+
+.mdelta { font-size: 11px; margin-top: 5px; font-weight: 500; }
+.up  { color: #16a34a; }
+.dn  { color: #dc2626; }
+.neu { color: #9199ab; }
+
+.mcard-sparkline { margin-left: auto; flex-shrink: 0; }
+
+@media (max-width: 900px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .metrics { grid-template-columns: 1fr 1fr; } .mcard-sparkline { display: none; } }

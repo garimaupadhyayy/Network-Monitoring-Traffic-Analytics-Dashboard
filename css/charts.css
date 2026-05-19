@@ -1,0 +1,30 @@
+/* charts.css — Traffic chart & protocol donut */
+.chart-wrap { position: relative; height: 180px; }
+
+.legend { display: flex; gap: 12px; }
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #9199ab; }
+.leg-dot  { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+/* Time range tabs */
+.time-tabs { display: flex; gap: 4px; }
+.ttab {
+  font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 6px;
+  color: #9199ab; background: #f5f6fa;
+  border: 1px solid #e4e7ed;
+  transition: all 0.15s;
+}
+.ttab:hover  { background: #e8eaf0; }
+.ttab.active { background: #1a1f36; color: #fff; border-color: #1a1f36; }
+
+/* Protocol panel */
+.proto-layout { display: flex; align-items: center; gap: 14px; }
+.proto-legend { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.proto-leg-row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; color: #374151;
+}
+.proto-leg-left  { display: flex; align-items: center; gap: 6px; color: #9199ab; }
+.proto-leg-bar   { flex: 1; height: 4px; background: #f0f2f5; border-radius: 4px; margin: 0 8px; }
+.proto-leg-fill  { height: 4px; border-radius: 4px; }
+.proto-leg-pct   { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: #1a1f36; }

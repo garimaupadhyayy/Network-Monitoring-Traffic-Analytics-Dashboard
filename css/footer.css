@@ -1,0 +1,22 @@
+/* footer.css */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #9199ab;
+  padding: 0 4px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer-stats  { display: flex; gap: 16px; }
+.footer-center { text-align: center; }
+.footer-right  { text-align: right; }
+.fstat { display: flex; align-items: center; gap: 5px; }
+.fstat-dot { width: 6px; height: 6px; border-radius: 50%; }
+.refresh-badge {
+  background: #f0fdf4; color: #16a34a;
+  border: 1px solid #bbf7d0;
+  padding: 1px 6px; border-radius: 4px;
+  font-family: 'DM Mono', monospace; font-size: 10px;
+}
