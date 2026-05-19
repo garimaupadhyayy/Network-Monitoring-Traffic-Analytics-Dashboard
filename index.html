@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nokia — Network Operations Center</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- CSS Modules -->
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/metrics.css" />
+  <link rel="stylesheet" href="css/charts.css" />
+  <link rel="stylesheet" href="css/alerts.css" />
+  <link rel="stylesheet" href="css/table.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header">
+    <div class="logo-wrap">
+      <div class="logo-box"><span>NK</span></div>
+      <div>
+        <div class="logo-text">Network Operations Center</div>
+        <div class="logo-sub">Nokia Infrastructure Monitoring Platform</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search node..." />
+        <span class="search-icon">⌕</span>
+      </div>
+      <div class="clock-box">
+        <div class="clock-time" id="clk">--:--:--</div>
+        <div class="clock-date" id="cdate">Loading...</div>
+      </div>
+      <div class="status-pill">
+        <span class="pulse"></span>
+        All systems operational
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== NOTIFICATION BAR ===== -->
+  <div class="notif-bar" id="notifBar">
+    <span class="notif-icon">⚠</span>
+    <span id="notifText">FW-01 Bengaluru: Latency spike detected — 67ms (threshold: 30ms)</span>
+    <button class="notif-close" onclick="document.getElementById('notifBar').style.display='none'">✕</button>
+  </div>
+
+  <!-- ===== METRIC CARDS ===== -->
+  <section class="metrics" aria-label="Key performance indicators">
+
+    <div class="mcard" id="card-throughput">
+      <div class="mcard-accent" style="background:#3b82f6"></div>
+      <div class="mcard-icon" style="background:#eff6ff;color:#3b82f6">⇅</div>
+      <div>
+        <div class="mlabel">Total throughput</div>
+        <div><span class="mval" id="m-t">4.7</span><span class="munit">Gbps</span></div>
+        <div class="mdelta up" id="m-td">↑ 12% vs last minute</div>
+      </div>
+      <div class="mcard-sparkline"><canvas id="spark1" width="60" height="30" aria-label="Throughput sparkline"></canvas></div>
+    </div>
+
+    <div class="mcard" id="card-latency">
+      <div class="mcard-accent" style="background:#10b981"></div>
+      <div class="mcard-icon" style="background:#f0fdf4;color:#10b981">⏱</div>
+      <div>
+        <div class="mlabel">Average latency</div>
+        <div><span class="mval" id="m-l">18</span><span class="munit">ms</span></div>
+        <div class="mdelta up" id="m-ld">↓ Within threshold</div>
+      </div>
+      <div class="mcard-sparkline"><canvas id="spark2" width="60" height="30" aria-label="Latency sparkline"></canvas></div>
+    </div>
+
+    <div class="mcard" id="card-loss">
+      <div class="mcard-accent" style="background:#f59e0b"></div>
+      <div class="mcard-icon" style="background:#fffbeb;color:#f59e0b">▽</div>
+      <div>
+        <div class="mlabel">Packet loss</div>
+        <div><span class="mval" id="m-p">0.4</span><span class="munit">%</span></div>
+        <div class="mdelta neu" id="m-pd">Normal range</div>
+      </div>
+      <div class="mcard-sparkline"><canvas id="spark3" width="60" height="30" aria-label="Packet loss sparkline"></canvas></div>
+    </div>
+
+    <div class="mcard" id="card-nodes">
+      <div class="mcard-accent" style="background:#ef4444"></div>
+      <div class="mcard-icon" style="background:#fef2f2;color:#ef4444">◈</div>
+      <div>
+        <div class="mlabel">Active nodes</div>
+        <div><span class="mval" id="m-n">18</span><span class="munit">/20</span></div>
+        <div class="mdelta dn">2 nodes degraded</div>
+      </div>
+      <div class="mcard-sparkline"><canvas id="spark4" width="60" height="30" aria-label="Node status sparkline"></canvas></div>
+    </div>
+
+  </section>
+
+  <!-- ===== MAIN ROW ===== -->
+  <div class="main-row">
+
+    <!-- Traffic Chart Panel -->
+    <div class="panel" id="panel-traffic">
+      <div class="panel-header">
+        <div class="ptitle">
+          <span class="ptitle-dot"></span>
+          Traffic throughput — live
+        </div>
+        <div class="panel-controls">
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot" style="background:#3b82f6"></div>Inbound</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#8b5cf6"></div>Outbound</div>
+          </div>
+          <div class="time-tabs">
+            <button class="ttab active" onclick="setTimeRange('1m',this)">1m</button>
+            <button class="ttab" onclick="setTimeRange('5m',this)">5m</button>
+            <button class="ttab" onclick="setTimeRange('15m',this)">15m</button>
+          </div>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="trafficChart" role="img" aria-label="Real-time inbound and outbound network traffic chart in Gbps"></canvas>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="side-col">
+
+      <!-- Alerts Panel -->
+      <div class="panel" id="panel-alerts" style="flex:1">
+        <div class="panel-header">
+          <div class="ptitle">
+            <span class="ptitle-dot" style="background:#ef4444"></span>
+            Active alerts
+          </div>
+          <span class="plabel" id="alert-count">3 open</span>
+        </div>
+        <div id="alertsContainer"></div>
+      </div>
+
+      <!-- Protocol Donut -->
+      <div class="panel" id="panel-proto">
+        <div class="panel-header">
+          <div class="ptitle">
+            <span class="ptitle-dot" style="background:#8b5cf6"></span>
+            Protocol split
+          </div>
+          <span class="plabel">Live</span>
+        </div>
+        <div class="proto-layout">
+          <div style="position:relative;height:100px;width:100px;flex-shrink:0">
+            <canvas id="protoChart" role="img" aria-label="Protocol distribution donut chart"></canvas>
+          </div>
+          <div class="proto-legend" id="protoLegend"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== BANDWIDTH UTILIZATION BAR ===== -->
+  <div class="panel" id="panel-bandwidth">
+    <div class="panel-header">
+      <div class="ptitle">
+        <span class="ptitle-dot" style="background:#10b981"></span>
+        Bandwidth utilization per node
+      </div>
+      <span class="plabel">Real-time</span>
+    </div>
+    <div id="bandwidthBars"></div>
+  </div>
+
+  <!-- ===== NODE TABLE ===== -->
+  <div class="table-panel" id="panel-table">
+    <div class="table-top">
+      <div class="ptitle">
+        <span class="ptitle-dot" style="background:#374151"></span>
+        Node status overview
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div class="filter-tabs">
+          <button class="ftab active" onclick="filterTable('all',this)">All</button>
+          <button class="ftab" onclick="filterTable('online',this)">Online</button>
+          <button class="ftab" onclick="filterTable('warn',this)">Warning</button>
+          <button class="ftab" onclick="filterTable('offline',this)">Offline</button>
+        </div>
+        <span class="plabel">Updated: <span id="lupd">just now</span></span>
+      </div>
+    </div>
+    <table class="node-table">
+      <thead>
+        <tr>
+          <th onclick="sortTable('id')" class="sortable">Node ID ↕</th>
+          <th onclick="sortTable('location')" class="sortable">Location ↕</th>
+          <th>Type</th>
+          <th onclick="sortTable('load')" class="sortable">Load ↕</th>
+          <th onclick="sortTable('latency')" class="sortable">Latency ↕</th>
+          <th>Uptime</th>
+          <th>IP Address</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-stats">
+      <div class="fstat"><div class="fstat-dot" style="background:#16a34a"></div><span id="f-online">18</span> online</div>
+      <div class="fstat"><div class="fstat-dot" style="background:#d97706"></div><span id="f-warn">2</span> warning</div>
+      <div class="fstat"><div class="fstat-dot" style="background:#9199ab"></div><span id="f-offline">0</span> offline</div>
+    </div>
+    <div class="footer-center">Nokia NetWatch Platform · v2.4.1</div>
+    <div class="footer-right">
+      Auto-refresh: <span class="refresh-badge">1.5s</span> ·
+      <span id="tick-count">0</span> updates
+    </div>
+  </footer>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+  <!-- JS Modules (order matters) -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/table.js"></script>
+  <script src="js/bandwidth.js"></script>
+  <script src="js/sparklines.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
