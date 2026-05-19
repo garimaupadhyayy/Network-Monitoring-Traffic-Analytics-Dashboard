@@ -1,6 +1,6 @@
 # Network Monitoring & Traffic Analytics Dashboard
 
-<img width="1919" height="890" alt="Screenshot 2026-05-19 172828" src="https://github.com/user-attachments/assets/a712eba8-8f87-4064-9d9c-02345668a674" /># Network-Monitoring-Traffic-Analytics-Dashboard
+<img width="1919" height="890" alt="Screenshot 2026-05-19 172828" src="https://github.com/user-attachments/assets/a712eba8-8f87-4064-9d9c-02345668a674" />
 
 A modern and interactive **Network Monitoring & Traffic Analytics Dashboard** built using **HTML, CSS, and JavaScript**.  
 This project provides real-time styled visualization of network traffic, bandwidth usage, alerts, connected devices, and system analytics through a responsive dashboard UI.
